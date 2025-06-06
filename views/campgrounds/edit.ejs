@@ -1,0 +1,127 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow">
+        <div class="card-header bg-warning text-dark">
+          <h3 class="mb-0"><i class="bi bi-pencil-square"></i> Edit Campground</h3>
+        </div>
+        <div class="card-body">
+
+          <form action="/campgrounds/<%= campground._id %>?_method=PUT" method="POST" class="needs-validation" novalidate enctype="multipart/form-data">
+
+            <!-- Title -->
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="title" name="campground[title]" value="<%= campground.title %>" required>
+              <label for="title"><i class="bi bi-type me-2"></i>Title</label>
+              <div class="valid-feedback">Looks great!</div>
+            </div>
+
+            <!-- Location -->
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="location" name="campground[location]" value="<%= campground.location %>" required>
+              <label for="location"><i class="bi bi-geo-alt-fill me-2"></i>Location</label>
+              <div class="valid-feedback">Location looks good!</div>
+            </div>
+
+            <!-- Price -->
+            <div class="form-floating mb-4">
+              <input type="number" class="form-control" id="price" name="campground[price]" value="<%= campground.price %>"  min="0" required>
+              <label for="price"><i class="bi bi-currency-dollar me-2"></i>Price</label>
+              <div class="valid-feedback">Price looks good.</div>
+            </div>   
+
+
+
+            <!-- Description -->
+            <div class="form-floating mb-3">
+              <textarea class="form-control" id="description" name="campground[description]" style="height: 100px" required><%= campground.description %></textarea>
+              <label for="description"><i class="bi bi-card-text me-2"></i>Description</label>
+              <div class="valid-feedback">Nice description!</div>
+            </div>
+
+
+            <!-- Current Images -->
+              <div class="mb-4">
+                <label class="form-label fw-bold"><i class="bi bi-images me-2"></i>Current Images</label>
+                <% if (campground.images.length) { %>
+                  <div class="row g-3">
+                    <% campground.images.forEach((img, index) => { %>
+                      <div class="col-6 col-md-4 col-lg-3">
+                        <div class="position-relative border rounded overflow-hidden">
+                          <img src="<%= img.url %>" alt="Campground image" class="img-fluid" />
+                          <div class="form-check mt-2 ms-1">
+                            <input class="form-check-input" type="checkbox" name="deleteImages[]" value="<%= img.filename %>" id="deleteImage<%= index %>">
+                            <label class="form-check-label text-danger small" for="deleteImage<%= index %>">
+                              Delete
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    <% }) %>
+                  </div>
+                <% } else { %>
+                  <p class="text-muted fst-italic">No images have been uploaded for this campground yet.</p>
+                <% } %>
+              </div>
+
+              <!-- Upload New Images -->
+              <div class="mb-4">
+                <label for="image" class="form-label fw-bold"><i class="bi bi-upload me-2"></i>Upload New Images</label>
+                <input 
+                  type="file" 
+                  class="form-control" 
+                  id="image" 
+                  name="image" 
+                  multiple 
+                  accept="image/*"
+                  aria-describedby="imageHelpBlock">
+                <div id="imageHelpBlock" class="form-text">
+                  You may upload up to 5 images. Existing images will remain unless deleted above.
+                </div>
+              </div>
+
+              <script>
+                const imageInput = document.getElementById('image');
+                imageInput.addEventListener('change', function () {
+                  const maxImages = 5;
+                  if (this.files.length > maxImages) {
+                    alert(`Please select no more than ${maxImages} images.`);
+                    this.value = '';
+                  }
+                });
+              </script>
+
+              
+
+            
+
+            <div class="d-grid">
+              <button type="submit" class="btn btn-primary btn-lg">
+                <i class="bi bi-check2-circle"></i> Update Campground
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="text-center mt-3">
+        <a href="/campgrounds/<%= campground._id %>" class="btn btn-outline-secondary">
+          <i class="bi bi-arrow-left-circle"></i> Back to Campground
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- Image -->
+            <!-- <div class="form-floating mb-3"> -->
+              <!-- <label class="form-label" for="image"><i class="bi bi-image me-2"></i>Image URL</label> -->
+              <!-- <input type="file" class="form-control py-3" id="image" name="image"  multiple > -->
+              
+              <!-- <div class="valid-feedback">Image URL looks valid.</div> -->
+            <!-- </div> -->

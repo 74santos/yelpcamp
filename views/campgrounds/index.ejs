@@ -1,0 +1,35 @@
+
+<% layout('layouts/boilerplate') %>
+
+<link rel="stylesheet" href="/stylesheets/stars.css">
+
+<%- include('../partials/mapCluster') %>
+
+<h1 class="text-center rubik-distressed-regular my-5">Explore Our Campgrounds</h1>
+
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+  <% campgrounds.forEach(camp => { %>
+    <div class="col">
+      <div class="card h-100 shadow-sm rounded-3">
+        <img src="<%= camp.images[0].url %>" class="card-img-top img-fluid rounded-top-3" alt="<%= camp.title %>" style="height: 250px; object-fit: cover;">
+        <div class="card-body d-flex flex-column g-1">
+          <h5 class="card-title"><%= camp.title %></h5>   
+          <p class="card-text small text-truncate"><%= camp.description || "A beautiful place to relax." %></p>
+          <p class="card-text text-muted"><%= camp.location %></p>
+          <a href="/campgrounds/<%= camp._id %>" class="btn btn-success mt-auto" style="color:white;">View <%= camp.title %></a>
+        </div>
+      </div>
+    </div>
+  <% }) %>
+</div>
+
+
+
+<script>const maptoken ='<%= process.env.MAPBOX_TOKEN %>';</script>
+<script>const campgrounds = <%- JSON.stringify(campgrounds) %> </script>
+
+
+<script src='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js'></script>
+<script src="https://unpkg.com/@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.min.js"></script>
+<script src="https://unpkg.com/supercluster@7.1.2/dist/supercluster.min.js"></script>
+<script src="/javascripts/mapCluster.js"></script>

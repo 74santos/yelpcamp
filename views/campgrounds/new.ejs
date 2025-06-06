@@ -1,0 +1,85 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+          <h3 class="mb-0"><i class="bi bi-plus-circle-dotted"></i> New Campground</h3>
+        </div>
+        <div class="card-body">
+
+          <form action="/campgrounds" method="POST" class="needs-validation" novalidate enctype="multipart/form-data">
+
+            <!-- Title -->
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="title" name="campground[title]" placeholder="Campground Title" required>
+              <label for="title"><i class="bi bi-pencil-square me-2"></i>Title</label>
+              <div class="valid-feedback">Looks good!</div>
+            </div>
+
+            <!-- Location -->
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="location" name="campground[location]" placeholder="Location" required>
+              <label for="location"><i class="bi bi-geo-alt-fill me-2"></i>Location</label>
+              <div class="valid-feedback">That’ll help others find it.</div>
+            </div>
+
+            <!-- Image URL -->
+
+            <div class="mb-3">
+              <label for="image" class="form-label">Upload Images (Max 5)</label>
+              <input type="file" class="form-control" id="image" name="image" multiple accept="image/*">
+              <div class="form-text">You can upload up to 5 images.</div>
+            </div>
+            
+            <script>
+              const imageInput = document.getElementById('image');
+              imageInput.addEventListener('change', function () {
+                if (this.files.length > 5) {
+                  alert('You can only upload up to 5 images.');
+                  this.value = ""; // clear the input
+                }
+              });
+            </script>
+            
+            <!-- <div class="form-floating mb-3">
+              <input type="url" class="form-control" id="image" name="campground[image]" placeholder="Image URL" required>
+              <label for="image"><i class="bi bi-image me-2"></i>Image URL</label>
+              <div class="valid-feedback">That’ll help others find it.</div>
+            </div> -->
+
+            <!-- Description -->
+            <div class="form-floating mb-3">
+              <textarea class="form-control" placeholder="Description" id="description" name="campground[description]" style="height: 100px" required></textarea>
+              <label for="description"><i class="bi bi-card-text me-2"></i>Description</label>
+              <div class="valid-feedback">Nice — that’ll help others get a feel for it.</div>
+            </div>
+
+            <!-- Price -->
+            <div class="form-floating mb-4">
+              <input type="number" class="form-control" id="price" name="campground[price]" placeholder="Price" step="0.01" min="0" required>
+              <label for="price"><i class="bi bi-currency-dollar me-2"></i>Campground Price</label>
+              <div class="valid-feedback">Nice — that’ll help others get a feel for it.</div>
+            </div>
+
+            <div class="d-grid">
+              <button type="submit" class="btn btn-success btn-lg">
+                <i class="bi bi-check-circle"></i> Create Campground
+              </button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+
+      <div class="text-center mt-3">
+        <a href="/campgrounds" class="btn btn-outline-secondary">
+          <i class="bi bi-arrow-left-circle"></i> Back to All Campgrounds
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+

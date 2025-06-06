@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Modak&family=Rubik+Distressed&display=swap');
+
+.rubik-distressed-regular {
+  font-family: "Rubik Distressed", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.rubik-distressed-bold {
+  font-family: "Rubik Distressed", system-ui;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.modak-regular {
+  font-family: "Modak", system-ui;
+  font-weight: 400;
+  color: #9CD08F ;
+  font-style: normal;
+}
+
+.modak-bold {
+  font-family: "Modak", system-ui;
+  font-weight: 700;
+  font-style: normal;
+}

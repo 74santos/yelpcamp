@@ -1,0 +1,63 @@
+const mongoose = require("mongoose");
+const cities = require('./cities');
+const { descriptors, places } = require('./seedHelpers');
+const Campground = require("../models/campground");
+const User = require('../models/user'); 
+
+mongoose.connect("mongodb://localhost:27017/yelp-camp").then(() => {
+  console.log("Connected to MongoDB");
+}).catch(err => {
+  console.log("Error connecting to MongoDB:", err);
+})
+
+
+const db = mongoose.connection;
+
+db.on("error", console.error.bind(console, "MongoDB connection error:"));
+db.once("open", () => {
+  console.log("Connected to MongoDB");
+});
+
+const sample = array => array[Math.floor(Math.random() * array.length)];  // const random = Math.floor(Math.random() * cities.length);
+
+
+
+
+const seedDB = async () => {
+  await Campground.deleteMany({});
+
+  const user = await User.findOne({ username: 'Tim' }); 
+  if (!user) {
+    console.error('User "Tim" not found!');
+    return;
+  }
+
+  console.log('Seeding with user:', user.username);
+
+  for (let i = 0; i < 150; i++) {
+    const price = Math.floor(Math.random() * 20) + 10;
+    const randomCity = sample(cities);
+
+    const camp = new Campground({
+      author: user._id,
+      title: `${sample(descriptors)} ${sample(places)}`,
+      location: `${randomCity.city}, ${randomCity.state}`,
+      geometry: {
+        type: "Point",
+        coordinates: [randomCity.longitude, randomCity.latitude]
+      },
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      images: [{url: `https://picsum.photos/seed/camp${i}/800/600`, filename: `camp${i}`}],
+      price
+    });
+
+    await camp.save();
+  } 
+
+  console.log("Database seeded with campgrounds!");
+};
+
+
+seedDB().then(() => {
+  mongoose.connection.close();
+});

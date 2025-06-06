@@ -1,0 +1,54 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="container mt-5 mb-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+      <h2 class="mb-4 text-center">Sign In to Your Account</h2>
+
+      <form action="/login" method="POST" class="needs-validation" novalidate>
+        <!-- Username -->
+        <div class="mb-3">
+          <label for="username" class="form-label">Username</label>
+          <input 
+            type="text" 
+            class="form-control" 
+            id="username" 
+            name="username" 
+            placeholder="e.g. camper123" 
+            required
+          >
+          <div class="invalid-feedback">
+            Please enter your username.
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input 
+            type="password" 
+            class="form-control" 
+            id="password" 
+            name="password" 
+            placeholder="Your secure password" 
+            required
+          >
+          <div class="invalid-feedback">
+            Please enter your password.
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary w-100">Login</button>
+      </form>
+
+      <!-- Optional: Additional Links -->
+      <div class="mt-3 text-center">
+        <small>Don’t have an account yet? <a href="/register">Create one</a></small><br>
+        <small><a href="#">Forgot your password?</a></small>
+      </div>
+    </div>
+  </div>
+</div>
+
+

@@ -1,0 +1,62 @@
+
+<!-- fw-bold // font-weight-bold--> 
+
+<nav class="navbar navbar-expand-lg bg-dark navbar-dark shadow-sm py-3">
+  <div class="container">
+    <!-- Brand -->
+    <a class="navbar-brand fs-1 modak-regular" href="/">
+      <i class="bi bi-compass me-2 text-white"></i>YelpCamp
+    </a>
+
+    <!-- Toggler for mobile -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Nav links -->
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav ms-auto gap-2 align-items-lg-center">
+        <li class="nav-item">
+          <a class="nav-link <% if (currentRoute === '/') { %>active<% } %>" href="/">
+            <i class="bi bi-house-door-fill me-1"></i>Home
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link <% if (currentRoute === '/campgrounds') { %>active<% } %>" href="/campgrounds">
+            <i class="bi bi-tree-fill me-1"></i>Campgrounds
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link <% if (currentRoute === '/campgrounds/new') { %>active<% } %>" href="/campgrounds/new">
+            <i class="bi bi-plus-square me-1"></i>New Campground
+          </a>
+        </li>
+
+        <% if (!currentUser) { %>
+          <li class="nav-item">
+            <a class="nav-link <% if (currentRoute === '/register') { %>active<% } %>" href="/register">
+              <i class="bi bi-person-plus me-1"></i>Sign Up
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link <% if (currentRoute === '/login') { %>active<% } %>" href="/login">
+              <i class="bi bi-box-arrow-in-right me-1"></i>Login
+            </a>
+          </li>
+        <% } else { %>
+          <!-- Logged-in user dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="bi bi-person-circle me-1"></i> <%= currentUser.username %>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+              <li><a class="dropdown-item" href="/campgrounds/new"><i class="bi bi-plus-circle me-1"></i>New Campground</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item text-danger" href="/logout"><i class="bi bi-box-arrow-left me-1"></i>Logout</a></li>
+            </ul>
+          </li>
+        <% } %>
+      </ul>
+    </div>
+  </div>
+</nav>

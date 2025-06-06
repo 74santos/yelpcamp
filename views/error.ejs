@@ -1,0 +1,36 @@
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+     
+    }
+    .error-container {
+      text-align: center;
+      padding: 40px;
+      border-radius: 12px;
+      background-color: white;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+      min-width:300px;
+    }
+    h1 {
+      font-size: 64px;
+      margin: 0;
+      color: #ef4444;
+    }
+  a {
+    text-decoration: none;
+    color: white;
+  }
+    
+  </style>
+<% layout('layouts/boilerplate') %>
+
+<div class="d-flex justify-content-center align-items-center mt-5">
+  <div class="error-container">
+    <h1><%= statusCode %></h1>
+    <p><%= message %></p>
+    <button class="btn btn-primary"><a href="/">← Back to Home</a></button>
+  </div>
+
+</div>
