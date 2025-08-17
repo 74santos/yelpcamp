@@ -24,3 +24,8 @@
   font-weight: 700;
   font-style: normal;
 }
+
+#fadeOverlay {
+    transition: opacity 1s ease-in-out;
+    pointer-events: none;
+  }
