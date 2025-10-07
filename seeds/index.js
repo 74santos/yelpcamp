@@ -29,15 +29,11 @@ const sample = array => array[Math.floor(Math.random() * array.length)];  // con
 const seedDB = async () => {
   await Campground.deleteMany({});
 
-// Ensure user "Tim" exists
   let user = await User.findOne({ username: 'Tim' });
+
   if (!user) {
-    user = new User({
-      username: 'Tim',
-      email: 'tim@example.com',
-      password: 'password123' // hash if you have authentication
-    });
-    await user.save();
+    user = new User({ username: 'Tim', email: 'tim@example.com' });
+    await User.register(user, 'password123'); // password123 is your login password
     console.log('Created user Tim for seeding.');
   } else {
     console.log('Seeding with existing user:', user.username);
