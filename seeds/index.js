@@ -3,23 +3,16 @@ const cities = require('./cities');
 const { descriptors, places } = require('./seedHelpers');
 const Campground = require("../models/campground");
 const User = require('../models/user');
-
+require('dotenv').config();
 
 // Use the DB_URL from environment variables
 const dbUrl = process.env.DB_URL  //|| "mongodb://127.0.0.1:27017/yelp-camp";
 
-if (!dbUrl) {
-  console.error("Error: DB_URL environment variable not set");
-  process.exit(1); // stop app if no DB URL
-}
 
-mongoose.connect(dbUrl, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-  .catch(err => {
-    console.error("Error connecting to MongoDB:", err);
-  });
+
+mongoose.connect(dbUrl)
+  .then(() => console.log("Connected to MongoDB Atlas"))
+  .catch(err => console.error("Error connecting to MongoDB:", err));
 
 const db = mongoose.connection;
 
@@ -36,13 +29,19 @@ const sample = array => array[Math.floor(Math.random() * array.length)];  // con
 const seedDB = async () => {
   await Campground.deleteMany({});
 
-  const user = await User.findOne({ username: 'Tim' }); 
+// Ensure user "Tim" exists
+  let user = await User.findOne({ username: 'Tim' });
   if (!user) {
-    console.error('User "Tim" not found!');
-    return;
+    user = new User({
+      username: 'Tim',
+      email: 'tim@example.com',
+      password: 'password123' // hash if you have authentication
+    });
+    await user.save();
+    console.log('Created user Tim for seeding.');
+  } else {
+    console.log('Seeding with existing user:', user.username);
   }
-
-  console.log('Seeding with user:', user.username);
 
   for (let i = 0; i < 150; i++) {
     const price = Math.floor(Math.random() * 20) + 10;
