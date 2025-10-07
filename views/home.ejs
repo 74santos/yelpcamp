@@ -114,19 +114,23 @@
     });
 
     // Fade out 1s before video ends
-    video.addEventListener("timeupdate", () => {
-      if (video.duration - video.currentTime <= 1) {
-        overlay.style.opacity = "1";
-      }
-    });
+    // video.addEventListener("timeupdate", () => {
+    //   if (video.duration - video.currentTime <= 1) {
+    //     overlay.style.opacity = "1";
+    //   }
+    // });
 
     // Restart video and fade in overlay
     video.addEventListener("ended", () => {
-      video.currentTime = 0;
-      video.play();
-      setTimeout(() => {
-        overlay.style.opacity = "0";
-      }, FADE_DURATION);
+      // video.currentTime = 0;
+     video.pause();          // stop playback
+     overlay.style.opacity = "0";
+
+     
+      // optional: ensure overlay stays visible
+      // setTimeout(() => {
+      //   overlay.style.opacity = "0";
+      // }, FADE_DURATION);
     });
   });
 </script>
