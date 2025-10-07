@@ -6,24 +6,26 @@ const User = require('../models/user');
 
 
 // Use the DB_URL from environment variables
-const dbUrl = process.env.DB_URL || "mongodb://127.0.0.1:27017/yelp-camp";
+const dbUrl = process.env.DB_URL  //|| "mongodb://127.0.0.1:27017/yelp-camp";
 
+if (!dbUrl) {
+  console.error("Error: DB_URL environment variable not set");
+  process.exit(1); // stop app if no DB URL
+}
 
 mongoose.connect(dbUrl, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-}).then(() => {
-  console.log("Connected to MongoDB");
-}).catch(err => {
-  console.log("Error connecting to MongoDB:", err);
 })
-
+  .catch(err => {
+    console.error("Error connecting to MongoDB:", err);
+  });
 
 const db = mongoose.connection;
 
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 db.once("open", () => {
-  console.log("Connected to MongoDB");
+  console.log("Connected to MongoDB Atlas");
 });
 
 const sample = array => array[Math.floor(Math.random() * array.length)];  // const random = Math.floor(Math.random() * cities.length);
