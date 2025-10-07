@@ -2,9 +2,17 @@ const mongoose = require("mongoose");
 const cities = require('./cities');
 const { descriptors, places } = require('./seedHelpers');
 const Campground = require("../models/campground");
-const User = require('../models/user'); 
+const User = require('../models/user');
 
-mongoose.connect("mongodb://localhost:27017/yelp-camp").then(() => {
+
+// Use the DB_URL from environment variables
+const dbUrl = process.env.DB_URL || "mongodb://127.0.0.1:27017/yelp-camp";
+
+
+mongoose.connect(dbUrl, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+}).then(() => {
   console.log("Connected to MongoDB");
 }).catch(err => {
   console.log("Error connecting to MongoDB:", err);
